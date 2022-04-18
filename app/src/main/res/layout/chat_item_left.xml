@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
+    <TextView
+        android:id="@+id/show_message"
+        android:background="@drawable/receiver_messages_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="receiver messages here"
+        android:padding="10dp"
+        android:textSize="14sp"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="50dp"
+        android:textColor="@android:color/black"
+        />
+    <TextView
+        android:id="@+id/show_msg_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:text="hh:mm a"
+        android:textStyle="bold"
+        android:layout_below="@id/show_message"
+        android:layout_alignStart="@id/show_message"
+        />
+
+    <ImageView
+        android:id="@+id/seen_tick"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/show_message"
+        android:visibility="gone"
+        />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_alignParentStart="true"
+        >
+    <ImageView
+        android:id="@+id/show_image"
+        android:layout_width="200dp"
+        android:layout_height="130dp"
+        android:layout_alignParentStart="true"
+        android:layout_margin="5dp"
+        android:scaleType="centerCrop"/>
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/show_img_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:text="hh:mm a"
+        android:textStyle="bold"
+        android:layout_below="@id/cardView"
+        android:layout_alignStart="@id/cardView" />
+
+    <ImageView
+        android:id="@+id/seen_tick_img"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/cardView"
+        android:visibility="gone"
+        />
+    <ImageView
+        android:id="@+id/show_document"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_margin="5dp"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/show_docx_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:text="hh:mm a"
+        android:textStyle="bold"
+        android:layout_below="@id/show_document"
+        android:layout_alignStart="@id/show_document" />
+
+    <ImageView
+        android:id="@+id/seen_tick_docx"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/show_document"
+        android:visibility="gone"
+        />
+</RelativeLayout>

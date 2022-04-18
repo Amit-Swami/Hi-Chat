@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        drawable="@drawable/ic_chats"
+        text="@string/chats" />
+
+    <tab
+        drawable="@drawable/people"
+        text="@string/contacts" />
+
+    <tab
+        drawable="@drawable/ic_question"
+        text="@string/requests" />
+
+</tabs>

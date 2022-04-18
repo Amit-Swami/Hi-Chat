@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/swipe_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Activity.RequestsFragment">
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+      <ProgressBar
+          android:id="@+id/simple_progressbar"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
+          android:visibility="gone"
+          android:layout_centerInParent="true"
+         />
+      <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+          android:id="@+id/recycler_chat_request_list"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_alignParentStart="true"
+          android:layout_alignParentTop="true"
+          app:shimmer_demo_child_count="10"
+          app:shimmer_demo_grid_child_count="2"
+          app:shimmer_demo_layout="@layout/demo_layout"
+          app:shimmer_demo_layout_manager_type="linear_vertical"
+          app:shimmer_demo_angle="20"/>
+
+      <RelativeLayout
+          android:id="@+id/request_item_relative"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:visibility="gone"
+          android:background="#EDEDED">
+         <ImageView
+             android:layout_centerInParent="true"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:src="@drawable/nothing" />
+      </RelativeLayout>
+   </RelativeLayout>
+
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

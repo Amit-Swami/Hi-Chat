@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground">
+
+
+    <RelativeLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/find_friend_profileimg"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/avatar" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/online_icon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:visibility="invisible"
+            android:src="@drawable/online_icon"
+            android:layout_alignBottom="@id/find_friend_profileimg"
+            android:layout_alignEnd="@id/find_friend_profileimg"/>
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/find_friend_profileimg"
+            android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/find_friend_username"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Sample Name"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:textAlignment="textStart"
+                    android:layout_width="wrap_content" />
+
+            <TextView
+                android:id="@+id/find_friend_status"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Sample Status"
+                android:textSize="15sp"
+                android:textAlignment="textStart"
+                android:layout_width="match_parent" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
+        android:background="#CACACA"
+         android:layout_below="@id/linearLayout"/>
+
+</RelativeLayout>
