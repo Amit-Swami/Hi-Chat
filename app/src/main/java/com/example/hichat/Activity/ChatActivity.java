@@ -85,7 +85,6 @@ public class ChatActivity extends AppCompatActivity {
     private StorageTask uploadTask;
     private Uri fileUri;
     private ProgressDialog loadingBar;
-    private String saveCurrentTime,saveCurrentDate;
 
     ValueEventListener seenListener;
     int unreadMsg=1;
@@ -101,12 +100,6 @@ public class ChatActivity extends AppCompatActivity {
 
         loadingBar = new ProgressDialog(this);
 
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
-        saveCurrentDate = currentDate.format(calendar.getTime());
-
-        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
-        saveCurrentTime = currentTime.format(calendar.getTime());
 
         mAuth = FirebaseAuth.getInstance();
         messageSenderID = mAuth.getCurrentUser().getUid();
@@ -304,6 +297,13 @@ public class ChatActivity extends AppCompatActivity {
                             public void onSuccess(Uri uri) {
                                 String downloadUrl = uri.toString();
 
+                                Calendar calendar = Calendar.getInstance();
+                                SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+                                String saveCurrentDateForDox = currentDate.format(calendar.getTime());
+
+                                SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+                                String saveCurrentTimeForDox = currentTime.format(calendar.getTime());
+
                                 Map messageImageBody = new HashMap();
                                 messageImageBody.put("message",downloadUrl);
                                 messageImageBody.put("name",fileUri.getLastPathSegment());
@@ -311,8 +311,8 @@ public class ChatActivity extends AppCompatActivity {
                                 messageImageBody.put("from",messageSenderID);
                                 messageImageBody.put("to", messageReceiverID);
                                 messageImageBody.put("messageID", messagePushID);
-                                messageImageBody.put("time", saveCurrentTime);
-                                messageImageBody.put("date", saveCurrentDate);
+                                messageImageBody.put("time", saveCurrentTimeForDox);
+                                messageImageBody.put("date", saveCurrentDateForDox);
                                 messageImageBody.put("unreadMsg",unreadMsg);
                                 messageImageBody.put("timeStamp",-1*date.getTime());
 
@@ -406,6 +406,12 @@ public class ChatActivity extends AppCompatActivity {
                           Uri downloadUrl = task.getResult();
                           myUrl = downloadUrl.toString();
 
+                          Calendar calendar = Calendar.getInstance();
+                          SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+                          String saveCurrentDateForImg = currentDate.format(calendar.getTime());
+
+                          SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+                          String saveCurrentTimeForImg = currentTime.format(calendar.getTime());
 
                           Map messageImageBody = new HashMap();
                           messageImageBody.put("message", myUrl);
@@ -414,8 +420,8 @@ public class ChatActivity extends AppCompatActivity {
                           messageImageBody.put("from", messageSenderID);
                           messageImageBody.put("to",messageReceiverID);
                           messageImageBody.put("messageID", messagePushID);
-                          messageImageBody.put("time",saveCurrentTime);
-                          messageImageBody.put("date",saveCurrentDate);
+                          messageImageBody.put("time",saveCurrentTimeForImg);
+                          messageImageBody.put("date",saveCurrentDateForImg);
                           messageImageBody.put("unreadMsg",unreadMsg);
                           messageImageBody.put("timeStamp",-1*date.getTime());
 
@@ -602,6 +608,13 @@ public class ChatActivity extends AppCompatActivity {
     {
 
         Date date = new Date();
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        String saveCurrentDateForText = currentDate.format(calendar.getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("hh:mm a");
+        String saveCurrentTimeForText = currentTime.format(calendar.getTime());
         String messageText = binding.messageBox.getText().toString();
 
         if (TextUtils.isEmpty(messageText))
@@ -622,8 +635,8 @@ public class ChatActivity extends AppCompatActivity {
             messageTextBody.put("from", messageSenderID);
             messageTextBody.put("to",messageReceiverID);
             messageTextBody.put("messageID", messagePushID);
-            messageTextBody.put("time",saveCurrentTime);
-            messageTextBody.put("date",saveCurrentDate);
+            messageTextBody.put("time",saveCurrentTimeForText);
+            messageTextBody.put("date",saveCurrentDateForText);
             messageTextBody.put("isSeen",0);
             messageTextBody.put("unreadMsg",unreadMsg);
             messageTextBody.put("timeStamp",-1*date.getTime());
