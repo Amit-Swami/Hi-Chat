@@ -1,24 +1,25 @@
 {
   "project_info": {
     "project_number": "637561193591",
+    "firebase_url": "https://hi--chat-da818-default-rtdb.firebaseio.com",
     "project_id": "hi--chat-da818",
     "storage_bucket": "hi--chat-da818.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:637561193591:android:09ab3a0ce6d88ef07eb272",
+        "mobilesdk_app_id": "1:637561193591:android:128408402827238d7eb272",
         "android_client_info": {
-          "package_name": "com.example.hichat"
+          "package_name": "com.socialmedia.hichat"
         }
       },
       "oauth_client": [
         {
-          "client_id": "637561193591-6qc5kqo24gfetgv8pjc5l5nghrna0cv7.apps.googleusercontent.com",
+          "client_id": "637561193591-g87er3mva3qpn0gj9r0b3mcp4se4o1si.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.hichat",
-            "certificate_hash": "f111e3388d2e5ac117fa0e90f106017177933b17"
+            "package_name": "com.socialmedia.hichat",
+            "certificate_hash": "f9fcf340f9b7b66f8111b708a8dfb9e62b4eaa7e"
           }
         },
         {

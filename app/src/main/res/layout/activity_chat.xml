@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg"
-    tools:context=".Activity.ChatActivity">
+    tools:context="com.socialmedia.hichat.Activity.ChatActivity">
 
     <ImageView
         android:id="@+id/sendBtn"
@@ -18,7 +18,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cardView"
-        app:srcCompat="@drawable/ic_send" />
+        app:srcCompat="@drawable/ic_send"/>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
