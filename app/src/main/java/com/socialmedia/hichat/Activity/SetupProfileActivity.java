@@ -3,16 +3,21 @@ package com.socialmedia.hichat.Activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -43,7 +48,10 @@ public class SetupProfileActivity extends AppCompatActivity {
     FirebaseStorage storage;
     Uri selectedImage;
     ProgressDialog dialog, restoringdatadialog;
+    AlertDialog mDialog;
     private static final int GALLERY_PICK = 1;
+    private int count=0;
+    CheckBox checkBox1,checkBox2,checkBox3,checkBox4,checkBox5,checkBoxEnd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,76 +59,20 @@ public class SetupProfileActivity extends AppCompatActivity {
         binding = ActivitySetupProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("Updating profile...");
-        dialog.setCancelable(false);
-
-        restoringdatadialog = new ProgressDialog(this);
-        restoringdatadialog.setMessage("Restoring data...");
-        restoringdatadialog.setCancelable(false);
-        restoringdatadialog.show();
-
-        binding.nameBox.requestFocus();
-
         database = FirebaseDatabase.getInstance();
         storage=FirebaseStorage.getInstance();
         auth = FirebaseAuth.getInstance();
 
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Updating profile...");
+        dialog.setCancelable(false);
+
+        ugcAlertDialog();
 
 
-        if (auth.getCurrentUser() != null)
-        {
+        binding.nameBox.requestFocus();
 
-            database.getReference().child("users").child(auth.getCurrentUser().getUid())
-                    .addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if ((snapshot.exists()) && (snapshot.hasChild("name")) && (snapshot.hasChild("status")) && (snapshot.hasChild("profileImage")) )
-                            {
-                                String retrieveName = snapshot.child("name").getValue().toString();
-                                String retrieveStatus = snapshot.child("status").getValue().toString();
-                                String retrieveProfileImage = snapshot.child("profileImage").getValue().toString();
 
-                                binding.nameBox.setText(retrieveName);
-                                binding.statusBox.setText(retrieveStatus);
-                                Glide.with(getApplicationContext())
-                                        .load(retrieveProfileImage)
-                                        .placeholder(R.drawable.avatar)
-                                        .into(binding.imageView);
-
-                                restoringdatadialog.dismiss();
-                                Intent intent = new Intent(SetupProfileActivity.this,MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                                finish();
-                            }
-                            else if ((snapshot.exists()) && (snapshot.hasChild("name")) && (snapshot.hasChild("status")))
-                            {
-                                String retrieveName = snapshot.child("name").getValue().toString();
-                                String retrieveStatus = snapshot.child("status").getValue().toString();
-                                binding.nameBox.setText(retrieveName);
-                                binding.statusBox.setText(retrieveStatus);
-
-                                restoringdatadialog.dismiss();
-                                Intent intent = new Intent(SetupProfileActivity.this,MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                                finish();
-                            }
-                            else
-                            {
-                                restoringdatadialog.dismiss();
-                                Toast.makeText(SetupProfileActivity.this, "No Data Found!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    });
-
-        }
 
         binding.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,6 +163,210 @@ public class SetupProfileActivity extends AppCompatActivity {
         });
 
     }
+
+    private void ugcAlertDialog() {
+
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(SetupProfileActivity.this);
+        View mView = getLayoutInflater().inflate(R.layout.ugc_dialog, null);
+        checkBox1=mView.findViewById(R.id.checkBox1);
+        checkBox2=mView.findViewById(R.id.checkBox2);
+        checkBox3=mView.findViewById(R.id.checkBox3);
+        checkBox4=mView.findViewById(R.id.checkBox4);
+        checkBox5=mView.findViewById(R.id.checkBox5);
+        checkBoxEnd = mView.findViewById(R.id.checkBoxEnd);
+        mBuilder.setTitle("UGC Policy");
+        //mBuilder.setMessage("User-Generated Content Policy (UGC).If you are going to use this app then accept these policies.");
+        mBuilder.setIcon(R.drawable.ic_baseline_policy_24);
+
+        checkBox1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkBox1.isChecked())
+                {
+                    count++;
+                }
+                else
+                {
+                    count--;
+                }
+                // do logic
+                mDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(count >= 5);
+            }
+        });
+        checkBox2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkBox2.isChecked())
+                {
+                    count++;
+                }
+                else
+                {
+                    count--;
+                }
+                mDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(count >= 5);
+            }
+        });
+        checkBox3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkBox3.isChecked())
+                {
+                    count++;
+                }
+                else
+                {
+                    count--;
+                }
+                mDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(count >= 5);
+            }
+        });
+        checkBox4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkBox4.isChecked())
+                {
+                    count++;
+                }
+                else
+                {
+                    count--;
+                }
+                mDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(count >= 5);
+            }
+        });
+        checkBox5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkBox5.isChecked())
+                {
+                    count++;
+                }
+                else
+                {
+                    count--;
+                }
+                mDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(count >= 5);
+            }
+        });
+
+
+
+        mBuilder.setView(mView);
+        mBuilder.setCancelable(false);
+        mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+
+                restoringdatadialog = new ProgressDialog(SetupProfileActivity.this);
+                restoringdatadialog.setMessage("Restoring data...");
+                restoringdatadialog.setCancelable(false);
+                restoringdatadialog.show();
+
+                checkForRestoreData();
+            }
+        });
+
+        mDialog = mBuilder.create();
+        mDialog.show();
+        mDialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+
+        checkBoxEnd.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(compoundButton.isChecked()){
+                    storeDialogStatus(true);
+                }else{
+                    storeDialogStatus(false);
+                }
+            }
+        });
+
+        if(getDialogStatus()){
+            mDialog.hide();
+            restoringdatadialog = new ProgressDialog(SetupProfileActivity.this);
+            restoringdatadialog.setMessage("Restoring data...");
+            restoringdatadialog.setCancelable(false);
+            restoringdatadialog.show();
+
+            checkForRestoreData();
+        }else{
+            mDialog.show();
+        }
+    }
+
+    private void storeDialogStatus(boolean isChecked){
+        SharedPreferences mSharedPreferences = getSharedPreferences("CheckItem", MODE_PRIVATE);
+        SharedPreferences.Editor mEditor = mSharedPreferences.edit();
+        mEditor.putBoolean("item", isChecked);
+        mEditor.apply();
+    }
+
+    private boolean getDialogStatus(){
+        SharedPreferences mSharedPreferences = getSharedPreferences("CheckItem", MODE_PRIVATE);
+        return mSharedPreferences.getBoolean("item", false);
+    }
+
+    private void checkForRestoreData() {
+
+        if (auth.getCurrentUser() != null)
+        {
+
+            database.getReference().child("users").child(auth.getCurrentUser().getUid())
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if ((snapshot.exists()) && (snapshot.hasChild("name")) && (snapshot.hasChild("status")) && (snapshot.hasChild("profileImage")) )
+                            {
+                                String retrieveName = snapshot.child("name").getValue().toString();
+                                String retrieveStatus = snapshot.child("status").getValue().toString();
+                                String retrieveProfileImage = snapshot.child("profileImage").getValue().toString();
+
+                                binding.nameBox.setText(retrieveName);
+                                binding.statusBox.setText(retrieveStatus);
+                                Glide.with(getApplicationContext())
+                                        .load(retrieveProfileImage)
+                                        .placeholder(R.drawable.avatar)
+                                        .into(binding.imageView);
+
+                                restoringdatadialog.dismiss();
+                                Intent intent = new Intent(SetupProfileActivity.this,MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else if ((snapshot.exists()) && (snapshot.hasChild("name")) && (snapshot.hasChild("status")))
+                            {
+                                String retrieveName = snapshot.child("name").getValue().toString();
+                                String retrieveStatus = snapshot.child("status").getValue().toString();
+                                binding.nameBox.setText(retrieveName);
+                                binding.statusBox.setText(retrieveStatus);
+
+                                restoringdatadialog.dismiss();
+                                Intent intent = new Intent(SetupProfileActivity.this,MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else
+                            {
+                                restoringdatadialog.dismiss();
+                                Toast.makeText(SetupProfileActivity.this, "No Data Found!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+        }
+
+
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
