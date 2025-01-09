@@ -15,6 +15,7 @@
 - SignUp/SignIn/Logout
 - Profile Creation
 - For 24hrs availaibilty to update story
+- Viewer check option on story and delete story option
 - Send request to user all over the world
 - Accept/remove user request
 - Notify for specific message
